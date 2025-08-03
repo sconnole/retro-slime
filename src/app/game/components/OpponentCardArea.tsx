@@ -1,4 +1,3 @@
-// src/app/game/components/OpponentCard.tsx
 'use client';
 
 import { motion } from 'framer-motion';
