@@ -21,7 +21,7 @@ export const createDeck = (): PlayerCard[] => {
 
 export const createOpponents = (): OpponentCard[] => {
   return [8, 10, 12, 14, 16].map((defense) => ({
-    name: 'Mud Brick wall',
+    name: 'Mud Brick Wall',
     imageUrl: './game-assets/opponents/mud-brick-wall.png',
     effect: 'not too much',
     description: "it's a wall",
