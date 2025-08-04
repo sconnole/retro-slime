@@ -1,22 +1,32 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { CardProps } from '../types';
 
-interface CardProps {
-  value: number;
-  label?: string;
-}
-
-export default function Card({ value, label }: CardProps) {
+export default function Card({ power, name, imageUrl, effect, description }: CardProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.8, y: 20 }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-      className="bg-white text-black rounded-2xl shadow-lg p-4 w-32 h-48 flex flex-col justify-center items-center border-4 border-gray-300"
+      initial={{ y: -30, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.4 }}
+      className="border-3 border-gray-200 bg-white p-2 text-center shadow-xl dark:border-gray-700 dark:bg-gray-900"
     >
-      {label && <div className="text-sm text-gray-600 mb-1">{label}</div>}
-      <div className="text-4xl font-bold">{value}</div>
+      <div className="mb-2 flex justify-center border-b border-gray-200 dark:border-gray-700">
+        <h3 className="flex items-center justify-center gap-1 text-xl font-semibold text-red-500 dark:text-red-300">
+          {power}
+        </h3>
+
+        <span className="px-3"></span>
+
+        <h2 className="text-xl font-bold text-indigo-700 dark:text-indigo-300">{name}</h2>
+      </div>
+      <img src={imageUrl} alt={name} className="mx-auto mb-3 h-48 object-cover" />
+
+      <p className="mb-2 border-t border-gray-200 text-sm text-yellow-600 italic dark:border-gray-700 dark:text-yellow-400">
+        {effect}
+      </p>
+
+      <p className="text-xs text-gray-600 dark:text-gray-400">{description}</p>
     </motion.div>
   );
 }
