@@ -8,10 +8,9 @@ export default function GamePage() {
   const {
     deck,
     discard,
-    drawn,
+    activeCards,
     opponents,
     currentOpponent,
-    statusMessage,
     isGameOver,
     drawCards,
     resetGame,
@@ -22,18 +21,13 @@ export default function GamePage() {
       {!isGameOver && currentOpponent ? (
         <GamePlayScreen
           currentOpponent={currentOpponent}
-          drawn={drawn}
+          activeCards={activeCards}
           deck={deck}
           discard={discard}
           onDraw={drawCards}
-          statusMessage={statusMessage}
         />
       ) : (
-        <GameOverScreen
-          won={opponents.length === 0}
-          statusMessage={statusMessage}
-          onRestart={resetGame}
-        />
+        <GameOverScreen won={opponents.length === 0} onRestart={resetGame} />
       )}
     </main>
   );

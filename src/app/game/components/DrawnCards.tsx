@@ -2,11 +2,7 @@
 
 import { CardProps } from '../types';
 
-type Props = {
-  cards: CardProps[];
-};
-
-export default function DrawnCards({ cards }: Props) {
+export default function DrawnCards(cards: CardProps[]) {
   return (
     <div className="flex justify-center gap-3">
       {cards.map((card) => (

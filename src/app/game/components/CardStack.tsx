@@ -4,11 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { CardProps } from '@/app/game/types';
 import Card from './Card';
 
-interface CardStackProps {
-  cards: CardProps[];
-}
-
-export default function CardStack({ cards }: CardStackProps) {
+export default function CardStack({ cards }: { cards: CardProps[] }) {
   return (
     <div className="flex justify-center gap-2">
       <AnimatePresence>
@@ -23,7 +19,13 @@ export default function CardStack({ cards }: CardStackProps) {
               delay: index * 0.3,
             }}
           >
-            <Card value={card.power} />
+            <Card
+              power={card.power}
+              name={card.name}
+              imageUrl={card.imageUrl}
+              effect={card.effect}
+              description={card.description}
+            />
           </motion.div>
         ))}
       </AnimatePresence>
