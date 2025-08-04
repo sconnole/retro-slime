@@ -1,9 +1,9 @@
 'use client';
 
-import { PlayerCard } from '../types';
+import { CardProps } from '../types';
 
 type Props = {
-  cards: PlayerCard[];
+  cards: CardProps[];
 };
 
 export default function DrawnCards({ cards }: Props) {

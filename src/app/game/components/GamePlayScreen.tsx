@@ -1,13 +1,13 @@
 import OpponentCardArea from './OpponentCardArea';
 import StatusMessage from './StatusMessage';
-import { PlayerCard, OpponentCard } from '../types';
+import { CardProps } from '../types';
 import PlayerArea from './PlayerArea';
 
 interface GamePlayScreenProps {
-  currentOpponent: OpponentCard;
-  drawn: PlayerCard[];
-  deck: PlayerCard[];
-  discard: PlayerCard[];
+  currentOpponent: CardProps;
+  drawn: CardProps[];
+  deck: CardProps[];
+  discard: CardProps[];
   onDraw: (count: number) => void;
   statusMessage: string;
 }

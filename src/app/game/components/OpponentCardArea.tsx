@@ -1,15 +1,15 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { OpponentCard } from '../types';
+import { CardProps } from '../types';
 
 export default function OpponentCardArea({
   name,
   imageUrl,
-  defense,
+  power,
   effect,
   description,
-}: OpponentCard) {
+}: CardProps) {
   return (
     <div className="flex justify-center">
       <motion.div
@@ -20,7 +20,7 @@ export default function OpponentCardArea({
       >
         <div className="mb-2 flex justify-center border-b border-gray-200 dark:border-gray-700">
           <h3 className="flex items-center justify-center gap-1 text-xl font-semibold text-red-500 dark:text-red-300">
-            <span>{defense}</span>
+            {power}
           </h3>
 
           <span className="px-3"></span>

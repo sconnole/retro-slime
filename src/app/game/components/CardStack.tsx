@@ -1,11 +1,11 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { PlayerCard } from '@/app/game/types';
+import { CardProps } from '@/app/game/types';
 import Card from './Card';
 
 interface CardStackProps {
-  cards: PlayerCard[];
+  cards: CardProps[];
 }
 
 export default function CardStack({ cards }: CardStackProps) {

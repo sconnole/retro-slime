@@ -1,12 +1,12 @@
 import CardStack from './CardStack';
 import DrawControls from './DrawControls';
 import DeckStatus from './DeckStatus';
-import { PlayerCard } from '../types';
+import { CardProps } from '../types';
 
 interface PlayerAreaProps {
-  drawn: PlayerCard[];
-  deck: PlayerCard[];
-  discard: PlayerCard[];
+  drawn: CardProps[];
+  deck: CardProps[];
+  discard: CardProps[];
   onDraw: (count: number) => void;
 }
 
