@@ -1,5 +1,5 @@
 export type CardProps = {
-  id?: string;
+  id: string;
   power: number;
   effect: string;
   description: string;
