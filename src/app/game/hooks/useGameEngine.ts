@@ -8,6 +8,8 @@ export function useGameEngine() {
   const [activeCards, setActiveCards] = useState<CardProps[]>([]);
   const [opponents, setOpponents] = useState<CardProps[]>([]);
   const [currentOpponent, setCurrentOpponent] = useState<CardProps | null>(null);
+  const [gameAnimationComplete, setGameAnimationComplete] = useState(false);
+  const [playerWon, setPlayerWon] = useState<boolean | null>(null);
 
   useEffect(() => {
     resetGame();
@@ -26,15 +28,24 @@ export function useGameEngine() {
   function drawCards(count: number) {
     if (deck.length < count || !currentOpponent) return;
 
-    const activeCards = deck.slice(0, count);
+    const cards = deck.slice(0, count);
     const newDeck = deck.slice(count);
-    const total = activeCards.reduce((sum, card) => sum + card.power, 0);
+    setDeck(newDeck);
+    const allActiveCards = [...activeCards, ...cards];
+    setActiveCards(allActiveCards);
+    setGameAnimationComplete(false);
+
+    const total = allActiveCards.reduce((sum, card) => sum + card.power, 0);
+    if (total < currentOpponent.power) {
+      // TODO flash message to user that opponent was not defeated
+      // activate opponents effect
+      return;
+    }
 
     let newOpponents = [...opponents];
 
-    setDeck(newDeck);
     setDiscard((prev) => [...prev, ...activeCards]);
-    setActiveCards(activeCards);
+    setActiveCards([]);
     setOpponents(newOpponents);
   }
 
@@ -49,5 +60,7 @@ export function useGameEngine() {
     isGameOver,
     drawCards,
     resetGame,
+    playerWon,
+    setPlayerWon,
   };
 }

@@ -1,12 +1,14 @@
 import CardStack from './CardStack';
 import DrawControls from './DrawControls';
-import { PlayerAreaProps } from '../types';
+import { useGame } from '../context/GameContext';
 
-export default function PlayerArea({ activeCards, deck, onDraw, discard }: PlayerAreaProps) {
+export default function PlayerArea() {
+  const { activeCards } = useGame();
+
   return (
     <>
       <CardStack cards={activeCards} />
-      <DrawControls onDraw={onDraw} deckLength={deck.length} />
+      <DrawControls />
     </>
   );
 }
