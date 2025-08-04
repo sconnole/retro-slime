@@ -1,16 +1,10 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { CardProps } from '../types';
 
 export default function Card({ power, name, imageUrl, effect, description }: CardProps) {
   return (
-    <motion.div
-      initial={{ scale: 0.8, y: 40, opacity: 0 }}
-      animate={{ scale: 1, y: 0, opacity: 1 }}
-      transition={{ duration: 0.5, type: 'spring', bounce: 0.35 }}
-      className="border-3 border-gray-200 bg-white p-2 text-center shadow-xl dark:border-gray-700 dark:bg-gray-900"
-    >
+    <div className="border-3 border-gray-200 bg-white p-2 text-center shadow-xl dark:border-gray-700 dark:bg-gray-900">
       <div className="mb-2 flex justify-center border-b border-gray-200 dark:border-gray-700">
         <h3 className="flex items-center justify-center gap-1 text-xl font-semibold text-red-500 dark:text-red-300">
           {power}
@@ -27,6 +21,6 @@ export default function Card({ power, name, imageUrl, effect, description }: Car
       </p>
 
       <p className="text-xs text-gray-600 dark:text-gray-400">{description}</p>
-    </motion.div>
+    </div>
   );
 }
