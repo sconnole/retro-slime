@@ -1,9 +1,7 @@
 import OpponentCardArea from './OpponentCardArea';
-import CardStack from './CardStack';
-import DrawControls from './DrawControls';
-import DeckStatus from './DeckStatus';
 import StatusMessage from './StatusMessage';
 import { PlayerCard, OpponentCard } from '../types';
+import PlayerArea from './PlayerArea';
 
 interface GamePlayScreenProps {
   currentOpponent: OpponentCard;
@@ -25,9 +23,7 @@ export default function GamePlayScreen({
   return (
     <div className="w-full max-w-sm space-y-6">
       <OpponentCardArea {...currentOpponent} />
-      <CardStack cards={drawn} />
-      <DrawControls onDraw={onDraw} deckLength={deck.length} />
-      <DeckStatus deckCount={deck.length} discardCount={discard.length} />
+      <PlayerArea drawn={drawn} onDraw={onDraw} deck={deck} discard={discard} />
       <StatusMessage message={statusMessage} />
     </div>
   );
