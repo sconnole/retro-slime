@@ -1,6 +1,7 @@
 // src/app/game/utils/gameHelpers.ts
 import { v4 as uuidv4 } from 'uuid';
 import { CardProps } from '../types';
+import { Egypt } from '../constants';
 
 export const shuffle = <T>(array: T[]): T[] => [...array].sort(() => Math.random() - 0.5);
 
@@ -20,12 +21,5 @@ export const createDeck = (): CardProps[] => {
 };
 
 export const createOpponents = (): CardProps[] => {
-  return [8, 10, 12, 14, 16].map((power) => ({
-    name: 'Mud Brick Wall',
-    imageUrl: './game-assets/opponents/mud-brick-wall.png',
-    effect: 'not too much',
-    description: "it's a wall",
-    id: uuidv4(),
-    power,
-  }));
+  return shuffle(Egypt);
 };

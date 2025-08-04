@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
-import { PlayerCard, OpponentCard } from '../types';
+import { CardProps } from '../types';
 import { createDeck, createOpponents } from '../utils';
 
 export function useGameEngine() {
-  const [deck, setDeck] = useState<PlayerCard[]>([]);
-  const [discard, setDiscard] = useState<PlayerCard[]>([]);
-  const [drawn, setDrawn] = useState<PlayerCard[]>([]);
-  const [opponents, setOpponents] = useState<OpponentCard[]>([]);
-  const [currentOpponent, setCurrentOpponent] = useState<OpponentCard | null>(null);
+  const [deck, setDeck] = useState<CardProps[]>([]);
+  const [discard, setDiscard] = useState<CardProps[]>([]);
+  const [drawn, setDrawn] = useState<CardProps[]>([]);
+  const [opponents, setOpponents] = useState<CardProps[]>([]);
+  const [currentOpponent, setCurrentOpponent] = useState<CardProps | null>(null);
   const [statusMessage, setStatusMessage] = useState<string>('');
 
   useEffect(() => {
@@ -35,16 +35,16 @@ export function useGameEngine() {
     let newOpponents = [...opponents];
     let message = '';
 
-    if (total >= currentOpponent.defense) {
+    if (total >= currentOpponent.power) {
       message = `✅ You drew ${total} and defeated the opponent!`;
       newOpponents.shift();
       setCurrentOpponent(newOpponents[0] || null);
     } else {
-      message = `❌ You drew ${total}, not enough to beat ${currentOpponent.defense}.`;
+      message = `❌ You drew ${total}, not enough to beat ${currentOpponent.power}.`;
     }
 
     setDeck(newDeck);
-    setDiscard(prev => [...prev, ...drawnCards]);
+    setDiscard((prev) => [...prev, ...drawnCards]);
     setDrawn(drawnCards);
     setOpponents(newOpponents);
     setStatusMessage(message);
