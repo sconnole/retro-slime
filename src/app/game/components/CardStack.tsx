@@ -8,16 +8,8 @@ import { useGame } from '../context/GameContext';
 
 export default function CardStack({ cards }: { cards: CardProps[] }) {
   const [peekedCardId, setPeekedCardId] = useState<string | null>(null);
-  const [hasCompleted, setHasCompleted] = useState(false);
 
-  const { currentOpponent, setPlayerWon } = useGame();
-
-  useEffect(() => {
-    if (hasCompleted && currentOpponent) {
-      const totalPower = cards.reduce((sum, card) => sum + card.power, 0);
-      setPlayerWon(totalPower > currentOpponent.power);
-    }
-  }, [hasCompleted, cards, currentOpponent, setPlayerWon]);
+  const { setGameAnimationComplete } = useGame();
 
   return (
     <div className="relative flex h-96 w-auto justify-center gap-2">
@@ -33,15 +25,20 @@ export default function CardStack({ cards }: { cards: CardProps[] }) {
                 top: `${index * 40}px`,
                 zIndex: isPeeked ? cards.length + 1 : index,
               }}
-              initial={{ scale: 1 }}
-              animate={{ scale: isPeeked ? 1.05 : 1 }}
+              initial={{ opacity: 0, y: 50, scale: 1 }}
+              animate={{ opacity: 1, y: 0, scale: isPeeked ? 1.05 : 1 }}
+              exit={{ opacity: 0, y: 50 }}
+              transition={{
+                duration: 0.5,
+                delay: index * 0.3,
+              }}
               onMouseEnter={() => setPeekedCardId(card.id)}
               onMouseLeave={() => setPeekedCardId(null)}
               onTouchStart={() => setPeekedCardId(card.id)}
               onTouchEnd={() => setPeekedCardId(null)}
               onAnimationComplete={() => {
                 if (index === cards.length - 1) {
-                  setHasCompleted(true);
+                  setGameAnimationComplete(true);
                 }
               }}
             >

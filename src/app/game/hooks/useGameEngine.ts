@@ -15,6 +15,28 @@ export function useGameEngine() {
     resetGame();
   }, []);
 
+  useEffect(() => {
+    if (gameAnimationComplete) {
+      if (hasDefeatedOpponents()) {
+        setDiscard((prev) => [...prev, ...activeCards]);
+        setActiveCards([]);
+
+        let newOpponents = opponents.slice(1);
+        if (newOpponents.length < 1) setPlayerWon(true);
+
+        setOpponents(newOpponents);
+        setCurrentOpponent(newOpponents[0]);
+      }
+    }
+  }, [gameAnimationComplete]);
+
+  function hasDefeatedOpponents(): boolean {
+    if (!currentOpponent) return false;
+
+    const total = activeCards.reduce((sum, card) => sum + card.power, 0);
+    return total >= currentOpponent.power;
+  }
+
   function resetGame() {
     const newDeck = createDeck();
     const newOpponents = createOpponents();
@@ -34,19 +56,6 @@ export function useGameEngine() {
     const allActiveCards = [...activeCards, ...cards];
     setActiveCards(allActiveCards);
     setGameAnimationComplete(false);
-
-    const total = allActiveCards.reduce((sum, card) => sum + card.power, 0);
-    if (total < currentOpponent.power) {
-      // TODO flash message to user that opponent was not defeated
-      // activate opponents effect
-      return;
-    }
-
-    let newOpponents = [...opponents];
-
-    setDiscard((prev) => [...prev, ...activeCards]);
-    setActiveCards([]);
-    setOpponents(newOpponents);
   }
 
   const isGameOver = deck.length === 0 || opponents.length === 0;
@@ -62,5 +71,7 @@ export function useGameEngine() {
     resetGame,
     playerWon,
     setPlayerWon,
+    gameAnimationComplete,
+    setGameAnimationComplete,
   };
 }
