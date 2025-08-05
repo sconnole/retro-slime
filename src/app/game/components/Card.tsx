@@ -4,23 +4,20 @@ import { CardProps } from '../types';
 
 export default function Card({ power, name, imageUrl, effect, description }: CardProps) {
   return (
-    <div className="border-3 border-gray-200 bg-white p-2 text-center shadow-xl dark:border-gray-700 dark:bg-gray-900">
-      <div className="mb-2 flex justify-center border-b border-gray-200 dark:border-gray-700">
-        <h3 className="flex items-center justify-center gap-1 text-xl font-semibold text-red-500 dark:text-red-300">
+    <div className="relative h-64 max-h-64 w-64 max-w-64 overflow-hidden rounded-lg border-[3px] border-yellow-400 bg-gradient-to-br from-yellow-100 to-yellow-200 shadow-[0_0_10px_rgba(0,0,0,0.3)] dark:border-yellow-600 dark:from-gray-800 dark:to-gray-900">
+      <img src={imageUrl} alt={name} className="absolute inset-0 h-full w-full object-cover" />
+
+      <div className="absolute top-0 right-0 left-0 flex justify-between bg-black/60 px-2 py-1 text-sm font-bold text-white">
+        <span className="truncate">{name}</span>
+        <span className="inline-block rounded bg-red-500 px-1 text-sm font-bold text-white shadow">
           {power}
-        </h3>
-
-        <span className="px-3"></span>
-
-        <h2 className="text-xl font-bold text-indigo-700 dark:text-indigo-300">{name}</h2>
+        </span>
       </div>
-      <img src={imageUrl} alt={name} className="mx-auto mb-3 h-48 object-cover" />
 
-      <p className="mb-2 border-t border-gray-200 text-sm text-yellow-600 italic dark:border-gray-700 dark:text-yellow-400">
-        {effect}
-      </p>
-
-      <p className="text-xs text-gray-600 dark:text-gray-400">{description}</p>
+      <div className="absolute right-0 bottom-0 left-0 bg-black/60 px-2 py-2 text-xs text-yellow-100">
+        <p className="bold text-sm">{effect}</p>
+        <p className="text-gray-200 italic">{description}</p>
+      </div>
     </div>
   );
 }

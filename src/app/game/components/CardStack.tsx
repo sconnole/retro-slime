@@ -12,7 +12,7 @@ export default function CardStack({ cards }: { cards: CardProps[] }) {
   const { setGameAnimationComplete } = useGame();
 
   return (
-    <div className="relative flex h-96 w-auto justify-center gap-2">
+    <div className="relative flex h-96 w-full items-center justify-center">
       <AnimatePresence>
         {cards.map((card, index) => {
           const isPeeked = peekedCardId === card.id;
@@ -20,12 +20,12 @@ export default function CardStack({ cards }: { cards: CardProps[] }) {
           return (
             <motion.div
               key={card.id}
-              className="absolute w-full max-w-80 transition-all duration-300 ease-in-out"
+              className="absolute left-1/2 w-full max-w-64 -translate-x-1/2 transition-all duration-300 ease-in-out"
               style={{
                 top: `${index * 40}px`,
                 zIndex: isPeeked ? cards.length + 1 : index,
               }}
-              initial={{ opacity: 0, y: 50, scale: 1 }}
+              initial={{ opacity: 0, y: 10, scale: 1 }}
               animate={{ opacity: 1, y: 0, scale: isPeeked ? 1.05 : 1 }}
               exit={{ opacity: 0, y: 50 }}
               transition={{
