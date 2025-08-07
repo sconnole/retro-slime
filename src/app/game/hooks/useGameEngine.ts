@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { CardProps } from '../types';
-import { createDeck, createOpponents } from '../utils';
+import { createDeck, createOpponents, delay } from '../utils';
+import { CARD_ANIMATION_DURATION } from '../constants';
 
 export function useGameEngine() {
   const [deck, setDeck] = useState<CardProps[]>([]);
@@ -15,6 +16,17 @@ export function useGameEngine() {
     resetGame();
   }, []);
 
+  useEffect(() => {
+    if (activeCards.length === 0) return;
+
+    const check = async () => {
+      await delay(CARD_ANIMATION_DURATION * 2);
+      checkOpponentIsDefeated();
+    };
+
+    check();
+  }, [activeCards]);
+
   function checkOpponentIsDefeated(): void {
     if (opponentIsDefeated()) {
       playerDiscard();
@@ -28,6 +40,7 @@ export function useGameEngine() {
     if (!currentOpponent) return false;
 
     const total = activeCards.reduce((sum, card) => sum + card.power, 0);
+    console.log(total, currentOpponent.power);
     return total >= currentOpponent.power;
   }
 

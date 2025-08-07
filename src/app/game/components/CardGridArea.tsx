@@ -1,5 +1,6 @@
 'use client';
 
+import { AnimatePresence } from 'motion/react';
 import { useGame } from '../context/GameContext';
 import Card from './Card';
 
@@ -12,9 +13,11 @@ export default function CardGridArea() {
   return (
     <>
       <div className="grid max-h-80 min-h-80 w-full grid-cols-2 justify-items-center gap-4 overflow-scroll">
-        {activeCards.map((card) => (
-          <Card key={card.id} {...card} />
-        ))}
+        <AnimatePresence>
+          {activeCards.map((card) => (
+            <Card key={card.id} {...card} />
+          ))}
+        </AnimatePresence>
       </div>
     </>
   );

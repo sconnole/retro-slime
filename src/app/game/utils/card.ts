@@ -1,6 +1,5 @@
 import { CardProps } from '../types';
-import { Egypt } from '../constants';
-import { Slimes } from '../constants/player-cards';
+import { Egypt, Slimes } from '../constants';
 
 export const shuffle = <T>(array: T[]): T[] => [...array].sort(() => Math.random() - 0.5);
 
