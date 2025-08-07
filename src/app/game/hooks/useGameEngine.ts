@@ -8,33 +8,42 @@ export function useGameEngine() {
   const [activeCards, setActiveCards] = useState<CardProps[]>([]);
   const [opponents, setOpponents] = useState<CardProps[]>([]);
   const [currentOpponent, setCurrentOpponent] = useState<CardProps | null>(null);
-  const [gameAnimationComplete, setGameAnimationComplete] = useState(false);
+  const [opponetDiscard, setOpponentDiscard] = useState<CardProps[]>([]);
   const [playerWon, setPlayerWon] = useState<boolean | null>(null);
 
   useEffect(() => {
     resetGame();
   }, []);
 
-  useEffect(() => {
-    if (gameAnimationComplete) {
-      if (hasDefeatedOpponents()) {
-        setDiscard((prev) => [...prev, ...activeCards]);
-        setActiveCards([]);
-
-        let newOpponents = opponents.slice(1);
-        if (newOpponents.length < 1) setPlayerWon(true);
-
-        setOpponents(newOpponents);
-        setCurrentOpponent(newOpponents[0]);
-      }
+  function checkOpponentIsDefeated(): void {
+    if (opponentIsDefeated()) {
+      playerDiscard();
+      opponentDiscard();
+    } else {
+      // TODO activate opponent effects
     }
-  }, [gameAnimationComplete]);
+  }
 
-  function hasDefeatedOpponents(): boolean {
+  function opponentIsDefeated(): boolean {
     if (!currentOpponent) return false;
 
     const total = activeCards.reduce((sum, card) => sum + card.power, 0);
     return total >= currentOpponent.power;
+  }
+
+  function playerDiscard() {
+    setActiveCards([]);
+  }
+
+  function opponentDiscard() {
+    setOpponentDiscard((prev) => {
+      return [...prev, opponents[0]];
+    });
+    let newOpponents = opponents.slice(1);
+    if (newOpponents.length < 1) setPlayerWon(true);
+
+    setOpponents(newOpponents);
+    setCurrentOpponent(newOpponents[0]);
   }
 
   function resetGame() {
@@ -45,6 +54,7 @@ export function useGameEngine() {
     setActiveCards([]);
     setOpponents(newOpponents);
     setCurrentOpponent(newOpponents[0]);
+    setOpponentDiscard([]);
   }
 
   function drawCards(count: number) {
@@ -55,7 +65,6 @@ export function useGameEngine() {
     setDeck(newDeck);
     const allActiveCards = [...activeCards, ...cards];
     setActiveCards(allActiveCards);
-    setGameAnimationComplete(false);
   }
 
   const isGameOver = deck.length === 0 || opponents.length === 0;
@@ -71,7 +80,7 @@ export function useGameEngine() {
     resetGame,
     playerWon,
     setPlayerWon,
-    gameAnimationComplete,
-    setGameAnimationComplete,
+    checkOpponentIsDefeated,
+    opponetDiscard,
   };
 }
