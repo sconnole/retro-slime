@@ -40,11 +40,13 @@ export function useGameEngine() {
     if (!currentOpponent) return false;
 
     const total = activeCards.reduce((sum, card) => sum + card.power, 0);
-    console.log(total, currentOpponent.power);
     return total >= currentOpponent.power;
   }
 
   function playerDiscard() {
+    setDiscard((prev) => {
+      return [...prev, ...activeCards];
+    });
     setActiveCards([]);
   }
 
